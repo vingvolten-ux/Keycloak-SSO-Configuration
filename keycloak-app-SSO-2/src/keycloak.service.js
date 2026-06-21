@@ -36,6 +36,11 @@ export function login() {
   keycloak.login()
 }
 
+/** Redirect straight to Google via Keycloak's Google Identity Provider (skips the Keycloak login form) */
+export function loginWithGoogle() {
+  keycloak.login({ idpHint: 'google' })
+}
+
 /** Redirect to Keycloak logout — always lands back on sign in page */
 export function logout() {
   // Clear direct grant tokens
