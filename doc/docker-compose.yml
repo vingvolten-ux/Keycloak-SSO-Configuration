@@ -7,6 +7,10 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      # Keycloak resolves ${env.VAR} placeholders inside the imported realm
+      # JSON at startup, so the Google secret never has to be committed to git.
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
     ports:
       - "8080:8080"
     volumes:
@@ -14,3 +18,4 @@ services:
       - ./myapp-frontend-realm.json:/opt/keycloak/data/import/myapp-frontend-realm.json
     # Automatically imports the realm file on startup
     command: start-dev --import-realm
+    
